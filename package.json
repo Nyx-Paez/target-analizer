@@ -1,0 +1,21 @@
+{
+  "name": "target-analyzer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "express-rate-limit": "^8.5.2",
+    "node-cache": "^5.1.2",
+    "puppeteer": "^25.1.0",
+    "socket.io": "^4.8.3",
+    "zod": "^4.4.3"
+  }
+}

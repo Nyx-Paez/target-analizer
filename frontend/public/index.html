@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Target Analyzer // v2.0</title>
+    <link rel="stylesheet" href="css/terminal.css">
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+<body>
+    <div class="terminal-container">
+        <div class="header">
+            <h1>SYS.TARGET_ANALYZER_V2</h1>
+            <input type="text" id="targetUrl" placeholder="https://..." autocomplete="off">
+            <button id="analyzeBtn">[ AUDITAR ]</button>
+        </div>
+        
+        <div id="logs" class="logs"></div>
+
+        <div id="exportPanel" style="display: none; justify-content: flex-end; margin-bottom: 15px;">
+            <button id="downloadPdfBtn" style="background: #fff; color: #000; border: 1px solid var(--neon-cyan);">[ DESCARGAR DOSSIER PDF ]</button>
+        </div>
+        
+        <div id="dashboard" class="grid-container" style="display: none;">
+            <div class="card p-screenshot">
+                <h3>Captura Desktop</h3>
+                <img id="desktopImg" src="" alt="Desktop View">
+            </div>
+            <div class="card p-seo">
+                <h3>Auditoría SEO & Red</h3>
+                <div id="seoData"></div>
+            </div>
+            <div class="card p-tech">
+                <h3>Firmas Tecnológicas</h3>
+                <div id="techData"></div>
+            </div>
+            <div class="card p-chart">
+                <div>
+                    <h3>Distribución de Enlaces</h3>
+                    <canvas id="linksChart"></canvas>
+                    <div id="linkLists"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div style="display: none;">
+        <div id="pdfTemplate" style="padding: 40px; background: #ffffff; color: #000000; font-family: 'Courier New', Courier, monospace; line-height: 1.6;">
+            <div style="text-align: center; border-bottom: 2px solid #000; padding-bottom: 10px; margin-bottom: 20px;">
+                <h1 style="margin: 0; font-size: 24px;">DOSSIER DE INTELIGENCIA TÁCTICA</h1>
+                <p style="margin: 5px 0 0 0; font-size: 14px;">CONFIDENCIAL // GENERADO POR TARGET ANALYZER</p>
+            </div>
+            
+            <p><strong>OBJETIVO:</strong> <span id="pdfTargetUrl"></span></p>
+            <p><strong>FECHA DE EXTRACCIÓN:</strong> <span id="pdfDate"></span></p>
+            
+            <h2 style="background: #f0f0f0; padding: 5px 10px; font-size: 18px; margin-top: 30px;">1. CAPTURA VISUAL (DESKTOP)</h2>
+            <img id="pdfImage" style="max-width: 100%; border: 1px solid #000; margin-top: 10px;" src="">
+            
+            <h2 style="background: #f0f0f0; padding: 5px 10px; font-size: 18px; margin-top: 30px;">2. INFRAESTRUCTURA Y RED</h2>
+            <p><strong>Nodo IP Detectado:</strong> <span id="pdfIp"></span></p>
+            <p><strong>Ubicación Física:</strong> <span id="pdfLoc"></span></p>
+            <p><strong>Latencia de Respuesta:</strong> <span id="pdfLat"></span></p>
+            
+            <h2 style="background: #f0f0f0; padding: 5px 10px; font-size: 18px; margin-top: 30px;">3. SEGURIDAD Y CERTIFICACIÓN</h2>
+            <p><strong>Emisor SSL:</strong> <span id="pdfSsl"></span></p>
+            
+            <h2 style="background: #f0f0f0; padding: 5px 10px; font-size: 18px; margin-top: 30px;">4. HUELLA TECNOLÓGICA DETECTADA</h2>
+            <p id="pdfTech" style="font-weight: bold;"></p>
+            
+            <h2 style="background: #f0f0f0; padding: 5px 10px; font-size: 18px; margin-top: 30px;">5. TOPOLOGÍA DE ENLACES</h2>
+            <p><strong>Total Nodos Internos:</strong> <span id="pdfIntLinks"></span></p>
+            <p><strong>Total Vectores Externos:</strong> <span id="pdfExtLinks"></span></p>
+            
+            <div style="text-align: center; margin-top: 20px;">
+                <img id="pdfChartImage" style="max-width: 300px; height: auto;" src="">
+            </div>
+
+            <h3 style="font-size: 16px; margin-top: 20px; border-bottom: 1px solid #ccc;">Muestra de Vectores Internos (Top 15):</h3>
+            <ul id="pdfIntList" style="font-size: 12px; word-break: break-all; padding-left: 20px;"></ul>
+
+            <h3 style="font-size: 16px; margin-top: 20px; border-bottom: 1px solid #ccc;">Muestra de Vectores Externos (Top 15):</h3>
+            <ul id="pdfExtList" style="font-size: 12px; word-break: break-all; padding-left: 20px;"></ul>
+        </div>
+    </div>
+    <script src="js/terminal.js"></script>
+</body>
+</html>
