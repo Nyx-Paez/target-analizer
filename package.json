@@ -1,13 +1,14 @@
 {
   "name": "target-analyzer",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Herramienta de extracción y análisis de URLs",
+  "main": "backend/server.js",
   "scripts": {
+    "start": "node backend/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
+  "author": "Nyx Margot Paez",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.6",
